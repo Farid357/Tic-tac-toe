@@ -6,32 +6,41 @@ public sealed class WinView : MonoBehaviour
     [SerializeField] private AudioSource _audio;
     [SerializeField] private Animation _winPanelAppearance;
     [SerializeField] private GameObject _winPanel;
-    [SerializeField] private TextMeshProUGUI _crossText;
-    [SerializeField] private TextMeshProUGUI _noughtText;
-    [SerializeField] private TextMeshProUGUI _tieText;
+    [SerializeField] private TextMeshProUGUI _text;
+    private WinFinderOrder _win;
 
-    public void ShowCrossWin()
+    public void Init(WinFinderOrder win)
     {
-        Show();
-        _crossText.gameObject.SetActive(true);
-    }
-    public void ShowTie()
-    {
-        Show();
-        _tieText.gameObject.SetActive(true);
+        _win = win ?? throw new System.ArgumentNullException(nameof(win));
+        _win.OnWon += Show;
+        _win.OnGotTie += ShowTie;
     }
 
-    private void Show()
+    private void OnDisable()
+    {
+        _win.OnWon -= Show;
+        _win.OnGotTie -= ShowTie;
+    }
+
+    private void Show(Shape shape)
+    {
+        ShowPanel();
+        _text.text = $"{shape.gameObject.name} wins!";
+        _text.gameObject.SetActive(true);
+    }
+
+    private void ShowTie()
+    {
+        ShowPanel();
+        _text.text = "Tie";
+        _text.gameObject.SetActive(true);
+    }
+
+
+    private void ShowPanel()
     {
         _audio.Play();
         _winPanelAppearance.Play();
         _winPanel.gameObject.SetActive(true);
-    }
-
-    public void ShowNoughtWin()
-    {
-        Show();
-        _winPanel.gameObject.SetActive(true);
-        _noughtText.gameObject.SetActive(true);
     }
 }

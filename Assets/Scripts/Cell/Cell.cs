@@ -2,33 +2,19 @@
 using System;
 
 [RequireComponent(typeof(AudioSource))]
-public sealed class Cell : MonoBehaviour
+public sealed class Cell : MonoBehaviour, IReadonlyCell
 {
-    public State State => _state;
-    public static event Action<Cell> OnClicked;
-    private State _state = State.None;
     private AudioSource _audioSource;
 
-    private void Awake()
-    {
-        _audioSource = GetComponent<AudioSource>();
-    }
+    public Shape Shape { get; private set; }
 
-    private void OnMouseDown()
+    public Vector3 Position => transform.position;
+
+    private void Awake() => _audioSource = GetComponent<AudioSource>();
+
+    public void SetShape(Shape shape)
     {
+        Shape = shape ?? throw new ArgumentNullException(nameof(shape));
         _audioSource.PlayOneShot(_audioSource.clip);
-        OnClicked?.Invoke(this);
     }
-
-    public void SetState(State state)
-    {
-        _state = state;
-    }
-   
-}
-public enum State
-{
-    None,
-    Cross,
-    Nought
 }
