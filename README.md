@@ -5,7 +5,7 @@
 
 <p align="center">
    <img src = "https://img.shields.io/badge/Движок-Unity%202021.2.5-blue" alt = "Unity version">
-   <img src = "https://img.shields.io/badge/Язык-C%23-ff69b4">X
+   <img src = "https://img.shields.io/badge/Язык-C%23-ff69b4">
   <img src = "https://img.shields.io/badge/Платформа%20-Android-important" >
 </p>
 
