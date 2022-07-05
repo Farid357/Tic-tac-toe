@@ -28,7 +28,7 @@
 
 
 ## Ссылки на профили опытных ребят
-- [**Илья**] (https://github.com/nilpunch),
+- [**Илья**] (https://github.com/naxa1ka),
 - [**Даниил**] (https://github.com/nilpunch)
 
 ## Разработчики
